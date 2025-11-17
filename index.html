@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>یاری پرسیار و وەڵام</title>
+    <style>
+        @font-face {
+            font-family: "K24KurdishBold";
+            src: url("K24KurdishBold-Bold.woff") format("woff"),
+                 url("K24KurdishBold-Bold.ttf") format("truetype");
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'K24KurdishBold', 'Arial', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(26, 188, 156, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(52, 152, 219, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(155, 89, 182, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .home-screen {
+            background: linear-gradient(135deg, rgba(30, 30, 46, 0.95) 0%, rgba(22, 33, 62, 0.95) 100%);
+            border-radius: 30px;
+            padding: 60px;
+            text-align: center;
+            box-shadow: 
+                0 25px 50px rgba(0,0,0,0.5),
+                inset 0 1px 0 rgba(255,255,255,0.1),
+                0 0 100px rgba(26, 188, 156, 0.1);
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 100px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(26, 188, 156, 0.5);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            background: linear-gradient(135deg, #1abc9c 0%, #3498db 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 52px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 0 0 30px rgba(26, 188, 156, 0.3);
+        }
+
+        .subtitle {
+            color: #95a5a6;
+            font-size: 24px;
+            margin-bottom: 50px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .menu-buttons {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .menu-btn {
+            padding: 30px 50px;
+            font-size: 24px;
+            background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            min-width: 280px;
+            box-shadow: 
+                0 10px 30px rgba(26, 188, 156, 0.3),
+                inset 0 1px 0 rgba(255,255,255,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .menu-btn:hover::before {
+            left: 100%;
+        }
+
+        .menu-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 15px 40px rgba(26, 188, 156, 0.5),
+                inset 0 1px 0 rgba(255,255,255,0.3);
+        }
+
+        .admin-screen {
+            display: none;
+            background: linear-gradient(135deg, rgba(30, 30, 46, 0.95) 0%, rgba(22, 33, 62, 0.95) 100%);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 
+                0 25px 50px rgba(0,0,0,0.5),
+                inset 0 1px 0 rgba(255,255,255,0.1),
+                0 0 100px rgba(26, 188, 156, 0.1);
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .game-screen {
+            display: none;
+            background: linear-gradient(135deg, rgba(30, 30, 46, 0.95) 0%, rgba(22, 33, 62, 0.95) 100%);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 
+                0 25px 50px rgba(0,0,0,0.5),
+                inset 0 1px 0 rgba(255,255,255,0.1),
+                0 0 100px rgba(26, 188, 156, 0.1);
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .back-btn {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            font-size: 18px;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.5);
+        }
+
+        .admin-form {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 20px;
+            color: #1abc9c;
+            font-weight: bold;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid rgba(26, 188, 156, 0.3);
+            border-radius: 12px;
+            font-size: 18px;
+            direction: rtl;
+            background: rgba(255,255,255,0.05);
+            color: #ecf0f1;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #1abc9c;
+            box-shadow: 0 0 20px rgba(26, 188, 156, 0.3);
+            background: rgba(255,255,255,0.1);
+        }
+
+        .options-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .option-input {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .option-input input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #1abc9c;
+        }
+
+        .add-question-btn {
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 20px;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 10px 25px rgba(39, 174, 96, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .add-question-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(39, 174, 96, 0.5);
+        }
+
+        .questions-list {
+            margin-top: 40px;
+        }
+
+        .questions-list h3 {
+            color: #1abc9c;
+            margin-bottom: 20px;
+            font-size: 26px;
+            text-shadow: 0 2px 10px rgba(26, 188, 156, 0.3);
+        }
+
+        .question-item {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1) 0%, rgba(41, 128, 185, 0.1) 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            position: relative;
+            border: 1px solid rgba(52, 152, 219, 0.2);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .question-item:hover {
+            transform: translateX(-5px);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.3);
+        }
+
+        .question-item h4 {
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+
+        .question-item p {
+            color: #ecf0f1;
+            font-size: 18px;
+        }
+
+        .question-item ul {
+            margin-top: 15px;
+            margin-right: 20px;
+            color: #bdc3c7;
+        }
+
+        .question-item ul li {
+            margin-bottom: 8px;
+            padding: 8px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.03);
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            padding: 8px 15px;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(231, 76, 60, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.5);
+        }
+
+        .game-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .game-header h2 {
+            color: #1abc9c;
+            font-size: 36px;
+            text-shadow: 0 2px 15px rgba(26, 188, 156, 0.5);
+        }
+
+        /* دیزاینی نوێی سەرەکی - پرسیارەکان و خشتەی خاڵەکان تەنیشت یەک */
+        .game-content {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 25px;
+            align-items: start;
+            height: calc(100vh - 250px);
+            max-height: 650px;
+        }
+
+        @media (max-width: 1024px) {
+            .game-content {
+                grid-template-columns: 1fr;
+                height: auto;
+                max-height: none;
+            }
+        }
+
+        .questions-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 10px;
+            padding: 25px;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1) 0%, rgba(41, 128, 185, 0.1) 100%);
+            border-radius: 20px;
+            border: 1px solid rgba(52, 152, 219, 0.2);
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.3);
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .questions-grid::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .questions-grid::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+        }
+
+        .questions-grid::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%);
+            border-radius: 10px;
+        }
+
+        .question-box {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 
+                0 5px 15px rgba(52, 152, 219, 0.3),
+                inset 0 1px 0 rgba(255,255,255,0.2);
+            position: relative;
+            overflow: hidden;
+            min-height: 50px;
+        }
+
+        .question-box::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.4s, height 0.4s;
+        }
+
+        .question-box:hover:not(:disabled)::before {
+            width: 100%;
+            height: 100%;
+        }
+
+        .question-box:hover:not(:disabled) {
+            transform: scale(1.08) rotate(3deg);
+            box-shadow: 
+                0 10px 30px rgba(52, 152, 219, 0.5),
+                inset 0 2px 0 rgba(255,255,255,0.3);
+        }
+
+        .question-box:disabled {
+            background: linear-gradient(135deg, rgba(127, 140, 141, 0.5) 0%, rgba(95, 106, 106, 0.5) 100%);
+            cursor: not-allowed;
+            opacity: 0.4;
+            box-shadow: none;
+        }
+
+        .scoreboard {
+            background: linear-gradient(135deg, rgba(155, 89, 182, 0.15) 0%, rgba(142, 68, 173, 0.15) 100%);
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(155, 89, 182, 0.3);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            position: sticky;
+            top: 20px;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .scoreboard::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .scoreboard::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+        }
+
+        .scoreboard::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+            border-radius: 10px;
+        }
+
+        .scoreboard h3 {
+            text-align: center;
+            margin-bottom: 18px;
+            color: #9b59b6;
+            font-size: 22px;
+            text-shadow: 0 2px 10px rgba(155, 89, 182, 0.5);
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(155, 89, 182, 0.3);
+        }
+
+        #scoreboardContainer {
+            overflow: hidden;
+        }
+
+        .player-score {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%);
+            border-radius: 12px;
+            margin-bottom: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            gap: 6px;
+        }
+
+        .player-score::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: linear-gradient(180deg, #1abc9c 0%, #16a085 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .player-score:hover {
+            transform: translateX(-8px);
+            box-shadow: 0 5px 20px rgba(155, 89, 182, 0.4);
+            border-color: rgba(155, 89, 182, 0.5);
+        }
+
+        .player-score:hover::before {
+            opacity: 1;
+        }
+
+        .player-score:first-child {
+            background: linear-gradient(135deg, rgba(241, 196, 15, 0.15) 0%, rgba(243, 156, 18, 0.15) 100%);
+            border-color: rgba(241, 196, 15, 0.4);
+        }
+
+        .player-score:first-child::before {
+            background: linear-gradient(180deg, #f1c40f 0%, #f39c12 100%);
+            opacity: 1;
+        }
+
+        .player-name {
+            font-size: 14px;
+            font-weight: bold;
+            color: #ecf0f1;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .player-name span:last-child {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .player-rank {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .player-score:first-child .player-rank {
+            background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
+        }
+
+        .player-points {
+            font-size: 18px;
+            color: #1abc9c;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(26, 188, 156, 0.5);
+            flex-shrink: 0;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, rgba(30, 30, 46, 0.98) 0%, rgba(22, 33, 62, 0.98) 100%);
+            padding: 45px;
+            border-radius: 25px;
+            max-width: 850px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 
+                0 30px 60px rgba(0,0,0,0.5),
+                inset 0 1px 0 rgba(255,255,255,0.1),
+                0 0 100px rgba(26, 188, 156, 0.2);
+            border: 1px solid rgba(255,255,255,0.1);
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .question-text {
+            font-size: 30px;
+            margin-bottom: 30px;
+            color: #ecf0f1;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            line-height: 1.5;
+        }
+
+        .timer {
+            font-size: 56px;
+            color: #e74c3c;
+            margin-bottom: 30px;
+            font-weight: bold;
+            text-shadow: 0 0 20px rgba(231, 76, 60, 0.5);
+            animation: pulse 1s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .answers-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .answer-btn {
+            padding: 25px;
+            font-size: 20px;
+            border: 3px solid rgba(52, 152, 219, 0.5);
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1) 0%, rgba(41, 128, 185, 0.1) 100%);
+            color: #ecf0f1;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .answer-btn:hover:not(.correct):not(.wrong) {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.3) 0%, rgba(41, 128, 185, 0.3) 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
+        }
+
+        .answer-btn.correct {
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            border-color: #27ae60;
+            color: white;
+            box-shadow: 0 10px 30px rgba(39, 174, 96, 0.5);
+            animation: correctPulse 0.5s ease;
+        }
+
+        .answer-btn.wrong {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            border-color: #e74c3c;
+            color: white;
+            box-shadow: 0 10px 30px rgba(231, 76, 60, 0.5);
+            animation: wrongShake 0.5s ease;
+        }
+
+        @keyframes correctPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes wrongShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .show-answer-btn {
+            padding: 18px 45px;
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(243, 156, 18, 0.4);
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .show-answer-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(243, 156, 18, 0.6);
+        }
+
+        .close-modal-btn {
+            padding: 18px 45px;
+            background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(26, 188, 156, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .close-modal-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(26, 188, 156, 0.6);
+        }
+
+        .player-selector {
+            margin-bottom: 25px;
+        }
+
+        .player-selector p {
+            color: #1abc9c;
+            font-size: 22px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .player-btn {
+            padding: 15px 30px;
+            margin: 8px;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.2) 0%, rgba(41, 128, 185, 0.2) 100%);
+            color: #ecf0f1;
+            border: 2px solid rgba(52, 152, 219, 0.5);
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .player-btn:hover {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.4) 0%, rgba(41, 128, 185, 0.4) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .player-btn.active {
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            border-color: #27ae60;
+            box-shadow: 0 5px 20px rgba(39, 174, 96, 0.5);
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Home Screen -->
+        <div class="home-screen" id="homeScreen">
+            <div class="logo">❓</div>
+            <h1>یاری پرسیار و وەڵام</h1>
+            <p class="subtitle">پێشبڕکێی زانستی بە ٤ یاریزان</p>
+            <div class="menu-buttons">
+                <button class="menu-btn" onclick="showAdmin()">➕ زیادکردنی پرسیار</button>
+                <button class="menu-btn" onclick="showPlayers()">👥 ناوی یاریزانەکان</button>
+                <button class="menu-btn" onclick="showGame()">▶️ دەستپێکردنی یاری</button>
+            </div>
+        </div>
+
+        <!-- Players Screen -->
+        <div class="admin-screen" id="playersScreen">
+            <button class="back-btn" onclick="showHome()">← گەڕانەوە</button>
+            <h2 style="text-align: center; color: #1abc9c; margin-bottom: 30px; font-size: 32px; text-shadow: 0 2px 15px rgba(26, 188, 156, 0.5);">ناوی یاریزانەکان</h2>
+            
+            <div class="admin-form">
+                <div class="form-group">
+                    <label>یاریزانی یەکەم:</label>
+                    <input type="text" id="player1Name" placeholder="ناوی یاریزانی یەکەم بنوسە...">
+                </div>
+
+                <div class="form-group">
+                    <label>یاریزانی دووەم:</label>
+                    <input type="text" id="player2Name" placeholder="ناوی یاریزانی دووەم بنوسە...">
+                </div>
+
+                <div class="form-group">
+                    <label>یاریزانی سێیەم:</label>
+                    <input type="text" id="player3Name" placeholder="ناوی یاریزانی سێیەم بنوسە...">
+                </div>
+
+                <div class="form-group">
+                    <label>یاریزانی چوارەم:</label>
+                    <input type="text" id="player4Name" placeholder="ناوی یاریزانی چوارەم بنوسە...">
+                </div>
+
+                <button class="add-question-btn" onclick="savePlayerNames()">پاشەکەوتکردنی ناوەکان</button>
+            </div>
+        </div>
+
+        <!-- Admin Screen -->
+        <div class="admin-screen" id="adminScreen">
+            <button class="back-btn" onclick="showHome()">← گەڕانەوە</button>
+            <h2 style="text-align: center; color: #1abc9c; margin-bottom: 30px; font-size: 32px; text-shadow: 0 2px 15px rgba(26, 188, 156, 0.5);">زیادکردنی پرسیاری نوێ</h2>
+            
+            <div class="admin-form">
+                <div class="form-group">
+                    <label>پرسیار:</label>
+                    <textarea id="questionText" rows="3" placeholder="پرسیارەکە بنوسە..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>هەڵبژاردنەکان:</label>
+                    <div class="options-group">
+                        <div class="option-input">
+                            <input type="radio" name="correctAnswer" value="0" id="correct0">
+                            <input type="text" id="option0" placeholder="هەڵبژاردنی ١">
+                        </div>
+                        <div class="option-input">
+                            <input type="radio" name="correctAnswer" value="1" id="correct1">
+                            <input type="text" id="option1" placeholder="هەڵبژاردنی ٢">
+                        </div>
+                        <div class="option-input">
+                            <input type="radio" name="correctAnswer" value="2" id="correct2">
+                            <input type="text" id="option2" placeholder="هەڵبژاردنی ٣">
+                        </div>
+                        <div class="option-input">
+                            <input type="radio" name="correctAnswer" value="3" id="correct3">
+                            <input type="text" id="option3" placeholder="هەڵبژاردنی ٤">
+                        </div>
+                    </div>
+                    <p style="color: #95a5a6; margin-top: 10px;">✓ نیشانەی ڕادیۆ لەسەر وەڵامی ڕاست دابنێ</p>
+                </div>
+
+                <button class="add-question-btn" onclick="addQuestion()">زیادکردنی پرسیار</button>
+
+                <div class="questions-list" id="questionsList">
+                    <h3>پرسیارە زیادکراوەکان:</h3>
+                    <div id="questionsContainer"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div class="game-screen" id="gameScreen">
+            
+            <div class="game-content">
+                <div class="questions-grid" id="questionsGrid"></div>
+                
+                <div class="scoreboard">
+                    <h3>🏆 خشتەی خاڵەکان</h3>
+                    <div id="scoreboardContainer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Question Modal -->
+    <div class="modal" id="questionModal">
+        <div class="modal-content">
+            <div class="player-selector" id="playerSelector">
+                <p>یاریزان هەڵبژێرە:</p>
+                <button class="player-btn" onclick="selectPlayer(0)" id="selectPlayerBtn0"></button>
+                <button class="player-btn" onclick="selectPlayer(1)" id="selectPlayerBtn1"></button>
+                <button class="player-btn" onclick="selectPlayer(2)" id="selectPlayerBtn2"></button>
+                <button class="player-btn" onclick="selectPlayer(3)" id="selectPlayerBtn3"></button>
+            </div>
+            <div id="questionContent" class="hidden">
+                <div class="timer" id="timer">12</div>
+                <div class="question-text" id="modalQuestion"></div>
+                <div class="answers-grid" id="answersGrid"></div>
+                <button class="close-modal-btn" onclick="closeModal()">داخستن</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let questions = [];
+        let players = [
+            { name: 'یاریزانی ١', score: 0 },
+            { name: 'یاریزانی ٢', score: 0 },
+            { name: 'یاریزانی ٣', score: 0 },
+            { name: 'یاریزانی ٤', score: 0 }
+        ];
+        let usedQuestions = [];
+        let currentQuestion = null;
+        let currentPlayer = null;
+        let timerInterval = null;
+        let answered = false;
+
+        function showHome() {
+            document.getElementById('homeScreen').style.display = 'block';
+            document.getElementById('adminScreen').style.display = 'none';
+            document.getElementById('playersScreen').style.display = 'none';
+            document.getElementById('gameScreen').style.display = 'none';
+        }
+
+        function showAdmin() {
+            document.getElementById('homeScreen').style.display = 'none';
+            document.getElementById('adminScreen').style.display = 'block';
+            document.getElementById('playersScreen').style.display = 'none';
+            document.getElementById('gameScreen').style.display = 'none';
+            displayQuestions();
+        }
+
+        function showPlayers() {
+            document.getElementById('homeScreen').style.display = 'none';
+            document.getElementById('adminScreen').style.display = 'none';
+            document.getElementById('playersScreen').style.display = 'block';
+            document.getElementById('gameScreen').style.display = 'none';
+            loadPlayerNames();
+        }
+
+        function showGame() {
+            if (questions.length === 0) {
+                alert('تکایە لە سەرەتادا پرسیار زیاد بکە!');
+                return;
+            }
+            document.getElementById('homeScreen').style.display = 'none';
+            document.getElementById('adminScreen').style.display = 'none';
+            document.getElementById('playersScreen').style.display = 'none';
+            document.getElementById('gameScreen').style.display = 'block';
+            renderQuestionsGrid();
+            renderScoreboard();
+        }
+
+        function loadPlayerNames() {
+            document.getElementById('player1Name').value = players[0].name;
+            document.getElementById('player2Name').value = players[1].name;
+            document.getElementById('player3Name').value = players[2].name;
+            document.getElementById('player4Name').value = players[3].name;
+        }
+
+        function savePlayerNames() {
+            const name1 = document.getElementById('player1Name').value.trim();
+            const name2 = document.getElementById('player2Name').value.trim();
+            const name3 = document.getElementById('player3Name').value.trim();
+            const name4 = document.getElementById('player4Name').value.trim();
+
+            if (!name1 || !name2 || !name3 || !name4) {
+                alert('تکایە هەموو ناوەکان پڕ بکەرەوە!');
+                return;
+            }
+
+            players[0].name = name1;
+            players[1].name = name2;
+            players[2].name = name3;
+            players[3].name = name4;
+
+            alert('ناوەکان بە سەرکەوتوویی پاشەکەوت کران!');
+            showHome();
+        }
+
+        function addQuestion() {
+            const questionText = document.getElementById('questionText').value.trim();
+            const options = [
+                document.getElementById('option0').value.trim(),
+                document.getElementById('option1').value.trim(),
+                document.getElementById('option2').value.trim(),
+                document.getElementById('option3').value.trim()
+            ];
+            const correctAnswer = document.querySelector('input[name="correctAnswer"]:checked');
+
+            if (!questionText || options.some(opt => !opt) || !correctAnswer) {
+                alert('تکایە هەموو خانەکان پڕ بکەرەوە و وەڵامی ڕاست دیاری بکە!');
+                return;
+            }
+
+            if (questions.length >= 100) {
+                alert('ناتوانیت زیاتر لە ١٠٠ پرسیار زیاد بکەیت!');
+                return;
+            }
+
+            questions.push({
+                id: Date.now(),
+                question: questionText,
+                options: options,
+                correctAnswer: parseInt(correctAnswer.value)
+            });
+
+            // Clear form
+            document.getElementById('questionText').value = '';
+            document.getElementById('option0').value = '';
+            document.getElementById('option1').value = '';
+            document.getElementById('option2').value = '';
+            document.getElementById('option3').value = '';
+            document.querySelectorAll('input[name="correctAnswer"]').forEach(r => r.checked = false);
+
+            displayQuestions();
+            alert('پرسیار بە سەرکەوتوویی زیاد کرا!');
+        }
+
+        function displayQuestions() {
+            const container = document.getElementById('questionsContainer');
+            if (questions.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #95a5a6;">هیچ پرسیارێک زیاد نەکراوە</p>';
+                return;
+            }
+
+            container.innerHTML = questions.map((q, index) => `
+                <div class="question-item">
+                    <button class="delete-btn" onclick="deleteQuestion(${q.id})">سڕینەوە</button>
+                    <h4>پرسیاری ${index + 1}:</h4>
+                    <p><strong>${q.question}</strong></p>
+                    <ul style="margin-top: 10px;">
+                        ${q.options.map((opt, i) => `
+                            <li style="color: ${i === q.correctAnswer ? '#27ae60' : '#bdc3c7'}">
+                                ${opt} ${i === q.correctAnswer ? '✓' : ''}
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            `).join('');
+        }
+
+        function deleteQuestion(id) {
+            if (confirm('دڵنیایت لە سڕینەوەی ئەم پرسیارە؟')) {
+                questions = questions.filter(q => q.id !== id);
+                displayQuestions();
+            }
+        }
+
+        function renderQuestionsGrid() {
+            const grid = document.getElementById('questionsGrid');
+            const total = Math.min(questions.length, 100);
+            grid.innerHTML = '';
+
+            for (let i = 1; i <= total; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'question-box';
+                btn.textContent = i;
+                btn.onclick = () => openQuestion(i - 1);
+                if (usedQuestions.includes(i - 1)) {
+                    btn.disabled = true;
+                }
+                grid.appendChild(btn);
+            }
+        }
+
+        function renderScoreboard() {
+            const container = document.getElementById('scoreboardContainer');
+            const sortedPlayers = [...players].sort((a, b) => b.score - a.score);
+            
+            container.innerHTML = sortedPlayers.map((player, index) => `
+                <div class="player-score">
+                    <span class="player-name">
+                        <span class="player-rank">${index + 1}</span>
+                        <span>${player.name}</span>
+                    </span>
+                    <span class="player-points">${player.score}</span>
+                </div>
+            `).join('');
+        }
+
+        function selectPlayer(index) {
+            currentPlayer = index;
+            document.querySelectorAll('.player-btn').forEach((btn, i) => {
+                btn.classList.toggle('active', i === index);
+            });
+            
+            setTimeout(() => {
+                document.getElementById('playerSelector').classList.add('hidden');
+                document.getElementById('questionContent').classList.remove('hidden');
+                startTimer();
+            }, 500);
+        }
+
+        function openQuestion(index) {
+            if (usedQuestions.includes(index)) return;
+            
+            currentQuestion = { ...questions[index], index };
+            answered = false;
+            currentPlayer = null;
+            
+            document.getElementById('playerSelector').classList.remove('hidden');
+            document.getElementById('questionContent').classList.add('hidden');
+            document.querySelectorAll('.player-btn').forEach(btn => btn.classList.remove('active'));
+            
+            // نوێکردنەوەی ناوی یاریزانەکان لە دوگمەکاندا
+            for (let i = 0; i < 4; i++) {
+                document.getElementById(`selectPlayerBtn${i}`).textContent = players[i].name;
+            }
+            
+            document.getElementById('modalQuestion').textContent = currentQuestion.question;
+            document.getElementById('timer').textContent = '12';
+            
+            const answersGrid = document.getElementById('answersGrid');
+            answersGrid.innerHTML = currentQuestion.options.map((opt, i) => `
+                <button class="answer-btn" onclick="checkAnswer(${i})">${opt}</button>
+            `).join('');
+            
+            document.getElementById('questionModal').style.display = 'flex';
+        }
+
+        function startTimer() {
+            let timeLeft = 12;
+            document.getElementById('timer').textContent = timeLeft;
+            
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                document.getElementById('timer').textContent = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    if (!answered) {
+                        showAnswerButton();
+                    }
+                }
+            }, 1000);
+        }
+
+        function showAnswerButton() {
+            const answersGrid = document.getElementById('answersGrid');
+            const showBtn = document.createElement('button');
+            showBtn.className = 'show-answer-btn';
+            showBtn.textContent = 'ئاشکراکردنی وەڵام';
+            showBtn.onclick = revealAnswer;
+            answersGrid.parentElement.insertBefore(showBtn, answersGrid);
+        }
+
+        function revealAnswer() {
+            const buttons = document.querySelectorAll('.answer-btn');
+            buttons[currentQuestion.correctAnswer].classList.add('correct');
+            disableAnswers();
+            document.querySelector('.show-answer-btn')?.remove();
+        }
+
+        function checkAnswer(selectedIndex) {
+            if (answered || currentPlayer === null) return;
+            
+            answered = true;
+            clearInterval(timerInterval);
+            document.querySelector('.show-answer-btn')?.remove();
+            
+            const buttons = document.querySelectorAll('.answer-btn');
+            const isCorrect = selectedIndex === currentQuestion.correctAnswer;
+            
+            buttons[selectedIndex].classList.add(isCorrect ? 'correct' : 'wrong');
+            
+            // ئەگەر هەڵە بوو، وەڵامی راست پیشان بدە
+            if (!isCorrect) {
+                setTimeout(() => {
+                    buttons[currentQuestion.correctAnswer].classList.add('correct');
+                }, 500);
+            }
+            
+            if (isCorrect) {
+                players[currentPlayer].score += 10;
+                renderScoreboard();
+            }
+            
+            disableAnswers();
+        }
+
+        function disableAnswers() {
+            document.querySelectorAll('.answer-btn').forEach(btn => {
+                btn.style.pointerEvents = 'none';
+            });
+        }
+
+        function closeModal() {
+            document.getElementById('questionModal').style.display = 'none';
+            clearInterval(timerInterval);
+            
+            if (currentQuestion) {
+                usedQuestions.push(currentQuestion.index);
+                renderQuestionsGrid();
+            }
+        }
+
+        // Initialize
+        showHome();
+    </script>
+</body>
+</html>
